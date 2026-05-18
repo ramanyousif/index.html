@@ -1,0 +1,326 @@
+﻿// Mobile Menu Toggle
+function toggleMenu() {
+    const navMenu = document.getElementById('nav-menu');
+    navMenu.classList.toggle('active');
+}
+
+// Smooth Scroll
+const pageLinks = document.querySelectorAll('a[href^="#"]');
+pageLinks.forEach(anchor => {
+    anchor.addEventListener('click', function (event) {
+        event.preventDefault();
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        document.getElementById('nav-menu').classList.remove('active');
+    });
+});
+
+// Score calculator helpers
+function updateTeamNames() {
+    const teamAName = document.getElementById('teamAName').value.trim() || 'Team A';
+    const teamBName = document.getElementById('teamBName').value.trim() || 'Team B';
+
+    document.getElementById('scoreTeamAHeader').textContent = teamAName;
+    document.getElementById('scoreTeamBHeader').textContent = teamBName;
+    document.getElementById('summaryTeamA').textContent = teamAName;
+    document.getElementById('summaryTeamB').textContent = teamBName;
+    recalculateScores();
+}
+
+function createRoundRow(index) {
+    const row = document.createElement('div');
+    row.className = 'score-row';
+    row.innerHTML = `
+        <span>${index}</span>
+        <input type="number" id="teamA-${index}" min="0" placeholder="0">
+        <input type="number" id="teamB-${index}" min="0" placeholder="0">
+    `;
+
+    row.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', recalculateScores);
+    });
+
+    return row;
+}
+
+function initScoreCalculator(initialRounds = 8) {
+    const scoreRowsContainer = document.getElementById('scoreRowsContainer');
+    scoreRowsContainer.innerHTML = '';
+
+    for (let i = 1; i <= initialRounds; i += 1) {
+        scoreRowsContainer.appendChild(createRoundRow(i));
+    }
+
+    document.getElementById('teamAName').addEventListener('input', updateTeamNames);
+    document.getElementById('teamBName').addEventListener('input', updateTeamNames);
+    updateTeamNames();
+}
+
+function recalculateScores() {
+    const teamAName = document.getElementById('teamAName').value.trim() || 'Team A';
+    const teamBName = document.getElementById('teamBName').value.trim() || 'Team B';
+    const scoreRowsContainer = document.getElementById('scoreRowsContainer');
+    const roundRows = Array.from(scoreRowsContainer.children);
+
+    let totalA = 0;
+    let totalB = 0;
+
+    roundRows.forEach((row, index) => {
+        const roundIndex = index + 1;
+        const aInput = document.getElementById(`teamA-${roundIndex}`);
+        const bInput = document.getElementById(`teamB-${roundIndex}`);
+        const aValue = Number(aInput?.value) || 0;
+        const bValue = Number(bInput?.value) || 0;
+
+        totalA += aValue;
+        totalB += bValue;
+    });
+
+    const combined = totalA + totalB;
+    document.getElementById('totalA').textContent = totalA;
+    document.getElementById('totalB').textContent = totalB;
+    document.getElementById('totalCombined').textContent = combined;
+
+    const leaderText = document.getElementById('leaderText');
+    if (combined === 0) {
+        leaderText.textContent = 'No points entered yet.';
+    } else if (totalA > totalB) {
+        leaderText.textContent = `${teamAName} is leading with ${totalA} points.`;
+    } else if (totalB > totalA) {
+        leaderText.textContent = `${teamBName} is leading with ${totalB} points.`;
+    } else {
+        leaderText.textContent = `${teamAName} and ${teamBName} are tied.`;
+    }
+
+    const lastRow = roundRows[roundRows.length - 1];
+    if (lastRow) {
+        const lastA = lastRow.querySelector(`#teamA-${roundRows.length}`)?.value.trim();
+        const lastB = lastRow.querySelector(`#teamB-${roundRows.length}`)?.value.trim();
+        const shouldAddRow = lastRow && (lastA !== '' || lastB !== '');
+
+        if (roundRows.length >= 8 && shouldAddRow) {
+            addRound();
+        }
+    }
+}
+
+function addRound() {
+    const scoreRowsContainer = document.getElementById('scoreRowsContainer');
+    const nextIndex = scoreRowsContainer.children.length + 1;
+    scoreRowsContainer.appendChild(createRoundRow(nextIndex));
+    document.getElementById(`teamA-${nextIndex}`).focus();
+}
+
+function resetScore() {
+    initScoreCalculator(8);
+    document.getElementById('summaryText').textContent = 'Fill in the scores for each round. Totals update automatically.';
+    document.getElementById('leaderText').textContent = 'No rounds entered yet.';
+}
+
+function calculate() {
+    const team1 = Number(document.getElementById('team1').value) || 0;
+    const team2 = Number(document.getElementById('team2').value) || 0;
+    const total = team1 + team2;
+    document.getElementById('result').textContent = 'کۆی گشتی: ' + total;
+}
+
+function getRoundAiMessage(roundNumber, team1Name, team2Name, score1, score2) {
+    const messages = [
+        (winner, loser, difference) => `${loser}، ئەمە یارییە یان ڕاهێنانی دۆڕان؟ ${winner} بە ${difference} خاڵ پێشەوەیە، هەستا چونکە خشتەکە بەزەیی پێتدا دێت.`,
+        (winner, loser, difference) => `${loser}، خاڵەکانت لە کافتریا جێماون یان خۆیان ڕایانکردووە؟ ${winner} بە ${difference} خاڵ پێشەوەیە، بچۆ بیانێرەوە پێش ئەوەی زۆر درەنگ بێت.`,
+        (winner, loser, difference) => `${loser}، ئەگەر دۆڕان هونەر بووایە، ئێستا مامۆستای گەورە بوویت! بەڵام ${winner} بە ${difference} خاڵ پێشە.`,
+        (winner, loser, difference) => `${loser}، تکایە GPS بۆ خاڵەکانت دابنێ، چونکە لە یارییەکەدا هیچ شوێنێکیان دیار نییە! ${winner} بە ${difference} خاڵ پێشەوەیە.`,
+        (winner, loser, difference) => `${loser}، یاری دەکەیت یان تەنها بە پەنجە لەسەر مۆبایلەکەوە هاتوویت؟ ${winner} بە ${difference} خاڵ پێشە، کەمێک جیدی ببە.`,
+        (winner, loser, difference) => `${loser}، خاڵەکانت وا کەمن پێویستیان بە زووم هەیە بۆ بینین! ${winner} بە ${difference} خاڵ پێشە.`,
+        (winner, loser, difference) => `${loser}، ئەگەر هەروا بەردەوام بیت، ${winner} دەبێت بە دەستی چەپیش یاری بکات بۆ ئەوەی یارییەکە عادل بێت. جیاوازی ${difference} خاڵە.`,
+        (winner, loser, difference) => `${loser}، خشتەکە دەڵێت: "تکایە یارمەتی ئەم تیمە بدەن!" ${winner} بە ${difference} خاڵ پێشە، دوا هەوڵت بدە.`,
+        (winner, loser, difference) => `${loser}، ئەم ئەدایەت وەک قاوەی بێ شەکرە؛ تاڵ و سارد! ${winner} بە ${difference} خاڵ پێشەوەیە.`,
+        (winner, loser, difference) => `${loser}، بەو شێوەیە ئەگەر لە خۆڕا خاڵیش بدرێت، هێشتا پێویستت بە یارمەتی دەبێت. ${winner} بە ${difference} خاڵ پێشە.`,
+        (winner, loser, difference) => `${loser}، ئەمە کۆنکانە نەک خەو! چاوت بکەرەوە، ${winner} بە ${difference} خاڵ خەریکی دوورکەوتنەوەیە.`,
+        (winner, loser, difference) => `${loser}، AI فەرمووی: ئەم یارییە پێویستی بە پلانی ڕزگارکردنی تیمەکەت هەیە. ${winner} بە ${difference} خاڵ پێشەوەیە.`
+    ];
+
+    if (score1 === 0 && score2 === 0) {
+        return `لە تەرەقەی ${roundNumber} هێشتا هیچ خاڵێک نییە.`;
+    }
+
+    if (score1 === score2) {
+        return `لە تەرەقەی ${roundNumber} هەردوو تیمەکە یەکسانن. AI ناتوانێت گاڵتە بە دۆڕاو بکات، چونکە دۆڕاو نییە!`;
+    }
+
+    const winner = score1 > score2 ? team1Name : team2Name;
+    const loser = score1 > score2 ? team2Name : team1Name;
+    const difference = Math.abs(score1 - score2);
+
+    return messages[(roundNumber - 1) % messages.length](winner, loser, difference);
+}
+
+function getStrongAiRoast(winner, loser, difference) {
+    const roasts = [
+        `${loser}، AI بە توندی پێت دەڵێت: ئەم ئاستە قبوڵ نییە! ${winner} بە ${difference} خاڵ پێشەوەیە و تۆ هێشتا وەک میوان سەیری یارییەکە دەکەیت.`,
+        `${loser}، ئەم دۆڕانە پێویستی بە کۆبوونەوەی فریاکەوتن هەیە. ${winner} بە ${difference} خاڵ پێشە، تکایە یاری بکە نەک نمایشی دۆڕان.`,
+        `${loser}، AI دەڵێت: ئەگەر ئەمە ستراتیژییە، تکایە بیگۆڕە؛ ئەگەر هەڵەیە، زۆر گەورەیە. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
+        `${loser}، بەڕاستی خشتەکە شەرم دەکات بۆت! ${winner} بە ${difference} خاڵ پێشە، ئێستا کاتی ئەوەیە شانازییەکەت ڕزگار بکەیت.`,
+        `${loser}، AI داوای وەستانی خەو دەکات. ${winner} بە ${difference} خاڵ پێشەوەیە و تۆ پێویستت بە گەڕانەوەیەکی گەورە هەیە.`,
+        `${loser}، ئەمە تەنها دۆڕان نییە، ئەمە وانەیەکی زیندووی "چۆن نابێت یاری بکەین"ـە. ${winner} بە ${difference} خاڵ پێشەوەیە.`
+    ];
+
+    return roasts[Math.floor(Math.random() * roasts.length)];
+}
+
+function calculateScores() {
+    const team1Inputs = document.querySelectorAll('.t1');
+    const team2Inputs = document.querySelectorAll('.t2');
+    let total1 = 0;
+    let total2 = 0;
+    let latestRound = 0;
+    let latestRoundScore1 = 0;
+    let latestRoundScore2 = 0;
+    const team1Name = document.getElementById('team1Name').value.trim() || 'تیمی یەکەم';
+    const team2Name = document.getElementById('team2Name').value.trim() || 'تیمی دووەم';
+
+    team1Inputs.forEach((input, index) => {
+        const value = Number(input.value) || 0;
+        total1 += Math.max(0, value); // Prevent negative totals
+        if (input.value.trim() !== '' || team2Inputs[index]?.value.trim() !== '') {
+            latestRound = index + 1;
+            latestRoundScore1 = Math.max(0, value);
+            latestRoundScore2 = Math.max(0, Number(team2Inputs[index]?.value) || 0);
+        }
+    });
+    team2Inputs.forEach((input, index) => {
+        const value = Number(input.value) || 0;
+        total2 += Math.max(0, value); // Prevent negative totals
+        if (input.value.trim() !== '' || team1Inputs[index]?.value.trim() !== '') {
+            latestRound = index + 1;
+            latestRoundScore1 = Math.max(0, Number(team1Inputs[index]?.value) || 0);
+            latestRoundScore2 = Math.max(0, value);
+        }
+    });
+
+    // Update display with animation
+    const name1 = document.getElementById('name1');
+    const name2 = document.getElementById('name2');
+    const total1Elem = document.getElementById('total1');
+    const total2Elem = document.getElementById('total2');
+
+    if (name1) name1.innerText = team1Name;
+    if (name2) name2.innerText = team2Name;
+    if (total1Elem) {
+        total1Elem.innerText = `کۆی ${team1Name}: ${total1}`;
+        total1Elem.style.animation = 'none';
+        setTimeout(() => {
+            total1Elem.style.animation = 'pulse 0.3s ease';
+        }, 10);
+    }
+    if (total2Elem) {
+        total2Elem.innerText = `کۆی ${team2Name}: ${total2}`;
+        total2Elem.style.animation = 'none';
+        setTimeout(() => {
+            total2Elem.style.animation = 'pulse 0.3s ease';
+        }, 10);
+    }
+
+    // Calculate and display difference
+    const difference = Math.abs(total1 - total2);
+    const differenceElem = document.getElementById('difference');
+    const aiOpinionElem = document.getElementById('aiOpinion');
+    if (differenceElem) {
+        if (total1 === total2) {
+            differenceElem.innerText = `جیاوازی: 0 - ${team1Name} و ${team2Name} یەکسانن`;
+        } else {
+            const aheadTeam = total1 > total2 ? team1Name : team2Name;
+            const behindTeam = total1 > total2 ? team2Name : team1Name;
+            differenceElem.innerText = `${aheadTeam} بە ${difference} خاڵ پێشەوەیە، ${behindTeam} بە ${difference} خاڵ دواوەیە`;
+        }
+        differenceElem.style.animation = 'none';
+        setTimeout(() => {
+            differenceElem.style.animation = 'pulse 0.3s ease';
+        }, 10);
+    }
+
+    if (aiOpinionElem) {
+        const roundMessage = latestRound > 0 ? getRoundAiMessage(latestRound, team1Name, team2Name, latestRoundScore1, latestRoundScore2) : '';
+        if (total1 === 0 && total2 === 0) {
+            aiOpinionElem.innerText = 'تێبینی زیرەک: خاڵەکان بنووسە بۆ ئەوەی AI بە توندی و گاڵتەی قورس لەگەڵ تیمی دۆڕاو قسە بکات.';
+        } else if (total1 < total2) {
+            aiOpinionElem.innerText = `بۆچوونی AI: ${getStrongAiRoast(team2Name, team1Name, difference)} ${roundMessage}`;
+        } else if (total2 < total1) {
+            aiOpinionElem.innerText = `بۆچوونی AI: ${getStrongAiRoast(team1Name, team2Name, difference)} ${roundMessage}`;
+        } else {
+            aiOpinionElem.innerText = `بۆچوونی AI: ${roundMessage} بە گشتی هەردوو تیمەکە یەکسانن، بۆیە AI ئێستا ناتوانێت هیچ تیمێک بکاتە قوربانی گاڵتە.`;
+        }
+
+        aiOpinionElem.style.animation = 'none';
+        setTimeout(() => {
+            aiOpinionElem.style.animation = 'pulse 0.3s ease';
+        }, 10);
+    }
+
+    // Determine leader
+    const leaderMessage = document.getElementById('leaderMessage');
+    if (leaderMessage) {
+        if (total1 > total2) {
+            leaderMessage.innerText = `${team1Name} رەهیبەر دەکەن 🏆`;
+        } else if (total2 > total1) {
+            leaderMessage.innerText = `${team2Name} رەهیبەر دەکەن 🏆`;
+        } else if (total1 === total2 && total1 > 0) {
+            leaderMessage.innerText = `برابریە! 🤝`;
+        }
+    }
+}
+
+// Add pulse animation
+if (!document.querySelector('style[data-pulse]')) {
+    const style = document.createElement('style');
+    style.setAttribute('data-pulse', 'true');
+    style.textContent = `
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+    initScoreCalculator();
+
+    const matchInputs = document.querySelectorAll('.t1, .t2');
+    matchInputs.forEach(input => {
+        input.addEventListener('input', calculateScores);
+    });
+
+    document.getElementById('team1Name').addEventListener('input', calculateScores);
+    document.getElementById('team2Name').addEventListener('input', calculateScores);
+
+    document.querySelectorAll('[data-default-name]').forEach(input => {
+        input.addEventListener('focus', function () {
+            if (this.value === this.dataset.defaultName) {
+                this.value = '';
+            }
+        });
+
+        input.addEventListener('blur', function () {
+            if (this.value.trim() === '') {
+                this.value = this.dataset.defaultName;
+                calculateScores();
+            }
+        });
+    });
+});
+
+// Header Scroll Effect
+window.addEventListener('scroll', function () {
+    const header = document.querySelector('header');
+    if (window.scrollY > 80) {
+        header.style.background = 'rgba(44, 24, 16, 0.95)';
+        header.style.backdropFilter = 'saturate(180%) blur(16px)';
+    } else {
+        header.style.background = 'rgba(44, 24, 16, 0.95)';
+        header.style.backdropFilter = 'none';
+    }
+});
