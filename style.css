@@ -1,4 +1,4 @@
-﻿* {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -1076,16 +1076,26 @@ footer p {
     }
 
     .match-score-calculator table {
-        min-width: 520px;
+        min-width: 0;
+        width: 100%;
+        table-layout: fixed;
     }
 
     .match-score-calculator table th,
     .match-score-calculator table td {
-        padding: 0.85rem;
+        padding: 0.75rem 0.35rem;
+        font-size: 0.85rem;
     }
 
     .match-score-calculator input.score {
-        width: 76px;
+        width: 100%;
+        max-width: 72px;
+        padding: 0.65rem 0.35rem;
+        font-size: 1rem;
+    }
+
+    .match-score-calculator .score-table-wrapper {
+        overflow-x: visible;
     }
 }
 
@@ -1132,18 +1142,38 @@ footer p {
         padding: 1rem;
     }
 
+    .match-score-calculator h2 {
+        font-size: 1.45rem;
+    }
+
     .match-score-calculator table {
-        min-width: 440px;
+        min-width: 0;
+        width: 100%;
+        table-layout: fixed;
     }
 
     .match-score-calculator table th,
     .match-score-calculator table td {
-        padding: 0.65rem 0.5rem;
-        font-size: 0.9rem;
+        padding: 0.6rem 0.25rem;
+        font-size: 0.78rem;
     }
 
     .match-score-calculator input.score {
-        width: 62px;
-        padding: 0.65rem 0.35rem;
+        width: 100%;
+        max-width: 58px;
+        padding: 0.55rem 0.25rem;
+    }
+
+    .match-score-calculator .score-table-wrapper {
+        overflow-x: visible;
+    }
+
+    .match-score-calculator .total-box {
+        padding: 1rem;
+        font-size: 0.95rem;
+    }
+
+    #difference {
+        font-size: 1rem;
     }
 }
