@@ -129,18 +129,25 @@ function calculate() {
 
 function getRoundAiMessage(roundNumber, team1Name, team2Name, score1, score2) {
     const messages = [
-        (winner, loser, difference) => `${loser}، ئەمە یارییە یان ڕاهێنانی دۆڕان؟ ${winner} بە ${difference} خاڵ پێشەوەیە، هەستا چونکە خشتەکە بەزەیی پێتدا دێت.`,
-        (winner, loser, difference) => `${loser}، خاڵەکانت لە کافتریا جێماون یان خۆیان ڕایانکردووە؟ ${winner} بە ${difference} خاڵ پێشەوەیە، بچۆ بیانێرەوە پێش ئەوەی زۆر درەنگ بێت.`,
-        (winner, loser, difference) => `${loser}، ئەگەر دۆڕان هونەر بووایە، ئێستا مامۆستای گەورە بوویت! بەڵام ${winner} بە ${difference} خاڵ پێشە.`,
-        (winner, loser, difference) => `${loser}، تکایە GPS بۆ خاڵەکانت دابنێ، چونکە لە یارییەکەدا هیچ شوێنێکیان دیار نییە! ${winner} بە ${difference} خاڵ پێشەوەیە.`,
-        (winner, loser, difference) => `${loser}، یاری دەکەیت یان تەنها بە پەنجە لەسەر مۆبایلەکەوە هاتوویت؟ ${winner} بە ${difference} خاڵ پێشە، کەمێک جیدی ببە.`,
-        (winner, loser, difference) => `${loser}، خاڵەکانت وا کەمن پێویستیان بە زووم هەیە بۆ بینین! ${winner} بە ${difference} خاڵ پێشە.`,
-        (winner, loser, difference) => `${loser}، ئەگەر هەروا بەردەوام بیت، ${winner} دەبێت بە دەستی چەپیش یاری بکات بۆ ئەوەی یارییەکە عادل بێت. جیاوازی ${difference} خاڵە.`,
-        (winner, loser, difference) => `${loser}، خشتەکە دەڵێت: "تکایە یارمەتی ئەم تیمە بدەن!" ${winner} بە ${difference} خاڵ پێشە، دوا هەوڵت بدە.`,
-        (winner, loser, difference) => `${loser}، ئەم ئەدایەت وەک قاوەی بێ شەکرە؛ تاڵ و سارد! ${winner} بە ${difference} خاڵ پێشەوەیە.`,
-        (winner, loser, difference) => `${loser}، بەو شێوەیە ئەگەر لە خۆڕا خاڵیش بدرێت، هێشتا پێویستت بە یارمەتی دەبێت. ${winner} بە ${difference} خاڵ پێشە.`,
-        (winner, loser, difference) => `${loser}، ئەمە کۆنکانە نەک خەو! چاوت بکەرەوە، ${winner} بە ${difference} خاڵ خەریکی دوورکەوتنەوەیە.`,
-        (winner, loser, difference) => `${loser}، AI فەرمووی: ئەم یارییە پێویستی بە پلانی ڕزگارکردنی تیمەکەت هەیە. ${winner} بە ${difference} خاڵ پێشەوەیە.`
+        (winner, loser, difference) => `${loser}، ئەمە یارییە یان کۆرسی فێربوونی دۆڕان؟ ${winner} بە ${difference} خاڵ پێشە، تۆش وەک وایفای لاوازیت.`,
+        (winner, loser, difference) => `${loser}، خاڵەکانت چوونە بازاڕ و نەگەڕانەوە! ${winner} بە ${difference} خاڵ پێشە، بچۆ بە قەرز خاڵ بکڕە.`,
+        (winner, loser, difference) => `${loser}، ئەم یارییەت وەک چای بێ شەکرە؛ هەیە بەڵام خۆش نییە. ${winner} بە ${difference} خاڵ پێشە.`,
+        (winner, loser, difference) => `${loser}، GPS بۆ خاڵەکانت دابنێ، چونکە هیچ شوێنێکیان دیار نییە. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
+        (winner, loser, difference) => `${loser}، تۆ یاری دەکەیت یان تەنها کورسییەکەت گەرم دەکەیت؟ ${winner} بە ${difference} خاڵ پێشە.`,
+        (winner, loser, difference) => `${loser}، خاڵەکانت وا کەمن بە زوومیش نابینرێن. ${winner} بە ${difference} خاڵ پێشە.`,
+        (winner, loser, difference) => `${loser}، ئەگەر هەروا بەردەوام بیت، ${winner} بە چاوی داخراویش دەتباتەوە. جیاوازی ${difference} خاڵە.`,
+        (winner, loser, difference) => `${loser}، خشتەکە شەرمەزارە لە جیات! ${winner} بە ${difference} خاڵ پێشە، تکایە خشتەکە ڕزگار بکە.`,
+        (winner, loser, difference) => `${loser}، ئەم ئەدایەت وەک قاوەی ساردە؛ کەس داوای ناکات. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
+        (winner, loser, difference) => `${loser}، بەو شێوەیە تەنانەت خۆڕایی خاڵیش ڕەنگە کەمت بێت. ${winner} بە ${difference} خاڵ پێشە.`,
+        (winner, loser, difference) => `${loser}، ئەمە کۆنکانە نەک خەوی نیوەڕۆ! چاوت بکەرەوە، ${winner} بە ${difference} خاڵ دوور دەکەوێتەوە.`,
+        (winner, loser, difference) => `${loser}، AI دەڵێت: ئەم تیمە پێویستی بە چارژەر و پلانی فریاکەوتن هەیە. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
+        (winner, loser, difference) => `${loser}، خشتەکە هاوار دەکات: "کەسێک ئەم تیمە ڕزگار بکات!" ${winner} بە ${difference} خاڵ پێشە.`,
+        (winner, loser, difference) => `${loser}، ئەگەر ئەمە ستراتیژییە، ستراتیژییەکە بۆ دۆڕان زۆر جوانە. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
+        (winner, loser, difference) => `${winner} وانە دەڵێتەوە، ${loser}یش هێشتا ناوی بابەتەکەی نەزانیوە. جیاوازی ${difference} خاڵە.`,
+        (winner, loser, difference) => `${loser}، هێشتا کات هەیە، بەڵام پێویستت بە موعجیزەیەکی بچووک هەیە. ${winner} بە ${difference} خاڵ پێشە.`,
+        (winner, loser, difference) => `${winner} ئارامە، ${loser} شڵەژاوە، AIیش لە کەنارەوە پێدەکەنێت. جیاوازی ${difference} خاڵە.`,
+        (winner, loser, difference) => `${loser}، ئەم جیاوازییە وەک قەرزی دوکانە، هەموو خولەکێک زیاد دەبێت. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
+        (winner, loser, difference) => `${winner} کۆنتڕۆڵی گرتووە، ${loser}یش هێشتا دوگمەی دەستپێکردنی نەدۆزیوەتەوە. جیاوازی ${difference} خاڵە.`
     ];
 
     if (score1 === 0 && score2 === 0) {
@@ -155,20 +162,71 @@ function getRoundAiMessage(roundNumber, team1Name, team2Name, score1, score2) {
     const loser = score1 > score2 ? team2Name : team1Name;
     const difference = Math.abs(score1 - score2);
 
-    return messages[(roundNumber - 1) % messages.length](winner, loser, difference);
+    return getFreshMessage('round', messages, winner, loser, difference);
 }
 
 function getStrongAiRoast(winner, loser, difference) {
     const roasts = [
-        `${loser}، AI بە توندی پێت دەڵێت: ئەم ئاستە قبوڵ نییە! ${winner} بە ${difference} خاڵ پێشەوەیە و تۆ هێشتا وەک میوان سەیری یارییەکە دەکەیت.`,
-        `${loser}، ئەم دۆڕانە پێویستی بە کۆبوونەوەی فریاکەوتن هەیە. ${winner} بە ${difference} خاڵ پێشە، تکایە یاری بکە نەک نمایشی دۆڕان.`,
-        `${loser}، AI دەڵێت: ئەگەر ئەمە ستراتیژییە، تکایە بیگۆڕە؛ ئەگەر هەڵەیە، زۆر گەورەیە. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
-        `${loser}، بەڕاستی خشتەکە شەرم دەکات بۆت! ${winner} بە ${difference} خاڵ پێشە، ئێستا کاتی ئەوەیە شانازییەکەت ڕزگار بکەیت.`,
-        `${loser}، AI داوای وەستانی خەو دەکات. ${winner} بە ${difference} خاڵ پێشەوەیە و تۆ پێویستت بە گەڕانەوەیەکی گەورە هەیە.`,
-        `${loser}، ئەمە تەنها دۆڕان نییە، ئەمە وانەیەکی زیندووی "چۆن نابێت یاری بکەین"ـە. ${winner} بە ${difference} خاڵ پێشەوەیە.`
+        `${loser}، AI بە توندی پێت دەڵێت: ئەم ئاستە قبوڵ نییە، تەنانەت بۆ یارییەکی خۆشی! ${winner} بە ${difference} خاڵ پێشە.`,
+        `${loser}، ئەم دۆڕانە پێویستی بە کۆبوونەوەی خێزانی هەیە. ${winner} بە ${difference} خاڵ پێشە، یاری بکە نەک سەیرکردن.`,
+        `${loser}، ئەگەر ئەمە پلانتە، پلانت وەک ئینتەرنێتی دوای بارانە. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
+        `${loser}، خشتەکە خەریکە داوای گواستنەوە بکات لە شەرمدا. ${winner} بە ${difference} خاڵ پێشە.`,
+        `${loser}، AI داوای وەستانی خەو دەکات؛ تۆ لە یارییەکەیت یان لە حەوتەم خەون؟ ${winner} بە ${difference} خاڵ پێشە.`,
+        `${loser}، ئەمە وانەیەکی زیندوویە: "چۆن بە کەمترین خاڵ زۆرترین شەرم دروست بکەین". ${winner} بە ${difference} خاڵ پێشە.`,
+        `${loser}، کەمێک هێور بیت؟ نە، کەمێک خاڵ بهێنە باشترە. ${winner} بە ${difference} خاڵ خەریکی ڕاکردنە.`,
+        `${loser}، ${winner} یارییەکەی خوێندووەتەوە، تۆش هێشتا وێنەی پەڕەی یەکەم دەبینیت.`,
+        `${loser}، ئەگەر بەم شێوەیە بەردەوام بیت، AI دەبێت پێت بڵێت "هەوڵت دا، بەس نەبوو". ${winner} بە ${difference} خاڵ پێشە.`,
+        `${winner} خەریکی دروستکردنی سەرکەوتنە، ${loser}یش خەریکی دروستکردنی میم ـە. جیاوازی ${difference} خاڵە.`,
+        `${loser}، ئەمە کاتی قسە نییە، کاتی ڕزگارکردنی ناوبانگە. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
+        `${loser}، دۆخی تیمەکەت زۆر گەرمە، بەڵام وەک مۆبایلی هەڵسووتاو. ${winner} بە ${difference} خاڵ پێشە.`
     ];
 
-    return roasts[Math.floor(Math.random() * roasts.length)];
+    return getFreshMessage('roast', roasts);
+}
+
+function getGameEndedMessage(team1Name, team2Name, total1, total2) {
+    const difference = Math.abs(total1 - total2);
+
+    if (total1 > total2) {
+        return getFreshMessage('final', [
+            () => `یارییەکە لە تەرەقەی ٨ کۆتایی هات. ${team1Name} براوەی یارییەکەیە بە جیاوازی ${difference} خاڵ 🏆`,
+            () => `کۆتایی! ${team1Name} یارییەکەی بردەوە. جیاوازی کۆتایی ${difference} خاڵ بوو.`,
+            () => `AI بڕیاری دا: ${team1Name} شایستەی بردنەوە بوو. یاری لە تەرەقەی ٨ کۆتایی هات.`,
+            () => `${team1Name} تا دوا تەرەقە کۆنتڕۆڵی پاراست و بردیەوە. پیرۆزە 🏆`
+        ]);
+    }
+
+    if (total2 > total1) {
+        return getFreshMessage('final', [
+            () => `یارییەکە لە تەرەقەی ٨ کۆتایی هات. ${team2Name} براوەی یارییەکەیە بە جیاوازی ${difference} خاڵ 🏆`,
+            () => `کۆتایی! ${team2Name} یارییەکەی بردەوە. جیاوازی کۆتایی ${difference} خاڵ بوو.`,
+            () => `AI بڕیاری دا: ${team2Name} شایستەی بردنەوە بوو. یاری لە تەرەقەی ٨ کۆتایی هات.`,
+            () => `${team2Name} تا دوا تەرەقە کۆنتڕۆڵی پاراست و بردیەوە. پیرۆزە 🏆`
+        ]);
+    }
+
+    return getFreshMessage('final', [
+        () => `یارییەکە لە تەرەقەی ٨ کۆتایی هات. هەردوو تیمەکە یەکسانن 🤝`,
+        () => `کۆتایی بە برابری! هیچ تیمێک نەیتوانی دوور بکەوێتەوە.`,
+        () => `AI دەڵێت ئەمە یارییەکی هاوسەنگ بوو. کۆتایی: برابری.`,
+        () => `دوای ٨ تەرەقە، هەردوو تیمەکە بە یەک ئاست کۆتاییان پێهێنا.`
+    ]);
+}
+
+function getFreshMessage(key, templates, ...args) {
+    const previousIndex = Number(sessionStorage.getItem(`lastAiMessage-${key}`));
+    let nextIndex = Math.floor(Math.random() * templates.length);
+
+    if (templates.length > 1) {
+        while (nextIndex === previousIndex) {
+            nextIndex = Math.floor(Math.random() * templates.length);
+        }
+    }
+
+    sessionStorage.setItem(`lastAiMessage-${key}`, String(nextIndex));
+
+    const template = templates[nextIndex];
+    return typeof template === 'function' ? template(...args) : template;
 }
 
 function calculateScores() {
@@ -246,6 +304,8 @@ function calculateScores() {
         const roundMessage = latestRound > 0 ? getRoundAiMessage(latestRound, team1Name, team2Name, latestRoundScore1, latestRoundScore2) : '';
         if (total1 === 0 && total2 === 0) {
             aiOpinionElem.innerText = 'تێبینی زیرەک: خاڵەکان بنووسە بۆ ئەوەی AI بە توندی و گاڵتەی قورس لەگەڵ تیمی دۆڕاو قسە بکات.';
+        } else if (latestRound >= 8) {
+            aiOpinionElem.innerText = `بۆچوونی AI: ${getGameEndedMessage(team1Name, team2Name, total1, total2)}`;
         } else if (total1 < total2) {
             aiOpinionElem.innerText = `بۆچوونی AI: ${getStrongAiRoast(team2Name, team1Name, difference)} ${roundMessage}`;
         } else if (total2 < total1) {
