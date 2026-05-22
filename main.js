@@ -333,6 +333,24 @@ function calculateScores() {
     }
 }
 
+function markOtherTeamWrong(input) {
+    const row = input.closest('tr');
+    if (!row || input.value.trim() === '') {
+        input.classList.remove('wrong-score');
+        input.readOnly = false;
+        return;
+    }
+
+    const otherInput = input.classList.contains('t1') ? row.querySelector('.t2') : row.querySelector('.t1');
+    input.classList.remove('wrong-score');
+    input.readOnly = false;
+    if (otherInput && otherInput.value.trim() === '') {
+        otherInput.value = '0';
+        otherInput.classList.add('wrong-score');
+        otherInput.readOnly = true;
+    }
+}
+
 // Add pulse animation
 if (!document.querySelector('style[data-pulse]')) {
     const style = document.createElement('style');
@@ -351,7 +369,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
     const matchInputs = document.querySelectorAll('.t1, .t2');
     matchInputs.forEach(input => {
-        input.addEventListener('input', calculateScores);
+        input.addEventListener('input', function () {
+            markOtherTeamWrong(this);
+            calculateScores();
+        });
     });
 
     document.getElementById('team1Name').addEventListener('input', calculateScores);
