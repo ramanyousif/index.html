@@ -1201,3 +1201,72 @@ footer p {
     border-color: #d93025;
     box-shadow: 0 0 0 3px rgba(217, 48, 37, 0.12);
 }
+
+.match-score-calculator .team-names {
+    gap: 1.25rem;
+    margin: 0 auto 1.4rem;
+    max-width: 760px;
+    direction: rtl;
+}
+
+.match-score-calculator .team-names input {
+    border: 2px solid rgba(211, 104, 5, 0.28);
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffffff 0%, #fff7ee 100%);
+    box-shadow: 0 10px 24px rgba(111, 78, 55, 0.08);
+    color: #4a2a13;
+    font-size: 1.05rem;
+    font-weight: 800;
+    padding: 0.95rem 1.2rem;
+    text-align: center;
+}
+
+.match-score-calculator .team-names input:focus {
+    border-color: #d36805;
+    box-shadow: 0 0 0 4px rgba(211, 104, 5, 0.14), 0 12px 28px rgba(111, 78, 55, 0.1);
+}
+
+.match-score-calculator table {
+    margin-bottom: 1.2rem;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(111, 78, 55, 0.06);
+}
+
+.match-score-calculator table th {
+    padding: 1rem 0.9rem;
+    font-size: 1rem;
+}
+
+.match-score-calculator table td {
+    padding: 0.85rem 0.8rem;
+}
+
+.match-score-calculator input.score {
+    width: 78px;
+    padding: 0.62rem 0.55rem;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .match-score-calculator .team-names {
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .match-score-calculator .team-names input {
+        padding: 0.85rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .match-score-calculator table th,
+    .match-score-calculator table td {
+        padding: 0.58rem 0.25rem;
+        font-size: 0.82rem;
+    }
+
+    .match-score-calculator input.score {
+        max-width: 58px;
+        padding: 0.5rem 0.2rem;
+    }
+}
