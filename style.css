@@ -1681,3 +1681,49 @@ footer p {
         font-size: 0.88rem;
     }
 }
+
+/* Filled Score Input Style */
+.match-score-calculator input.score.score-filled:not(.wrong-score) {
+    border-color: #cf7704;
+    background: linear-gradient(135deg, #fff3dc 0%, #ffd28a 100%);
+    color: #2C1810;
+    box-shadow: 0 10px 24px rgba(207, 119, 4, 0.28), inset 0 1px 0 rgba(255,255,255,0.6);
+    transform: translateY(-1px);
+}
+
+.match-score-calculator input.score.score-filled:not(.wrong-score):focus {
+    border-color: #d66204;
+    box-shadow: 0 0 0 4px rgba(207, 119, 4, 0.18), 0 12px 28px rgba(207, 119, 4, 0.32);
+}
+
+/* Polished Wrong Score Input Style */
+.match-score-calculator input.score.wrong-score {
+    border-color: #ef4444 !important;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.72), rgba(255,235,235,0.92)),
+        repeating-linear-gradient(45deg, rgba(239, 68, 68, 0.12) 0 8px, rgba(239, 68, 68, 0.04) 8px 16px) !important;
+    color: transparent !important;
+    caret-color: transparent;
+    cursor: not-allowed;
+    box-shadow: 0 10px 24px rgba(239, 68, 68, 0.18), inset 0 1px 0 rgba(255,255,255,0.7);
+    position: relative;
+}
+
+.match-score-calculator input.score.wrong-score::placeholder {
+    color: transparent;
+}
+
+.match-score-calculator input.score.wrong-score:focus {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15), 0 12px 28px rgba(239, 68, 68, 0.22) !important;
+}
+
+.match-score-calculator input.score.wrong-score {
+    background-image:
+        linear-gradient(45deg, transparent calc(50% - 1.5px), #dc2626 calc(50% - 1.5px), #dc2626 calc(50% + 1.5px), transparent calc(50% + 1.5px)),
+        linear-gradient(-45deg, transparent calc(50% - 1.5px), #dc2626 calc(50% - 1.5px), #dc2626 calc(50% + 1.5px), transparent calc(50% + 1.5px)),
+        linear-gradient(135deg, rgba(255,255,255,0.78), rgba(255,235,235,0.96)) !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 24px, 24px 24px, 100% 100%;
+}

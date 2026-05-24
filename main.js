@@ -167,18 +167,18 @@ function getRoundAiMessage(roundNumber, team1Name, team2Name, score1, score2) {
 
 function getStrongAiRoast(winner, loser, difference) {
     const roasts = [
-        `${loser}، AI بە توندی پێت دەڵێت: ئەم ئاستە قبوڵ نییە، تەنانەت بۆ یارییەکی خۆشی! ${winner} بە ${difference} خاڵ پێشە.`,
-        `${loser}، ئەم دۆڕانە پێویستی بە کۆبوونەوەی خێزانی هەیە. ${winner} بە ${difference} خاڵ پێشە، یاری بکە نەک سەیرکردن.`,
-        `${loser}، ئەگەر ئەمە پلانتە، پلانت وەک ئینتەرنێتی دوای بارانە. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
-        `${loser}، خشتەکە خەریکە داوای گواستنەوە بکات لە شەرمدا. ${winner} بە ${difference} خاڵ پێشە.`,
-        `${loser}، AI داوای وەستانی خەو دەکات؛ تۆ لە یارییەکەیت یان لە حەوتەم خەون؟ ${winner} بە ${difference} خاڵ پێشە.`,
-        `${loser}، ئەمە وانەیەکی زیندوویە: "چۆن بە کەمترین خاڵ زۆرترین شەرم دروست بکەین". ${winner} بە ${difference} خاڵ پێشە.`,
-        `${loser}، کەمێک هێور بیت؟ نە، کەمێک خاڵ بهێنە باشترە. ${winner} بە ${difference} خاڵ خەریکی ڕاکردنە.`,
-        `${loser}، ${winner} یارییەکەی خوێندووەتەوە، تۆش هێشتا وێنەی پەڕەی یەکەم دەبینیت.`,
-        `${loser}، ئەگەر بەم شێوەیە بەردەوام بیت، AI دەبێت پێت بڵێت "هەوڵت دا، بەس نەبوو". ${winner} بە ${difference} خاڵ پێشە.`,
-        `${winner} خەریکی دروستکردنی سەرکەوتنە، ${loser}یش خەریکی دروستکردنی میم ـە. جیاوازی ${difference} خاڵە.`,
-        `${loser}، ئەمە کاتی قسە نییە، کاتی ڕزگارکردنی ناوبانگە. ${winner} بە ${difference} خاڵ پێشەوەیە.`,
-        `${loser}، دۆخی تیمەکەت زۆر گەرمە، بەڵام وەک مۆبایلی هەڵسووتاو. ${winner} بە ${difference} خاڵ پێشە.`
+        `${loser}، AI بە توندی پێت دەڵێت: ئەم ئاستە قبوڵ نییە، تەنانەت بۆ یارییەکی خۆشی! تۆ بە ${difference} خاڵ دواوەیت.`,
+        `${loser}، ئەم دۆڕانە پێویستی بە کۆبوونەوەی خێزانی هەیە. تۆ بە ${difference} خاڵ دواوەیت، یاری بکە نەک سەیرکردن.`,
+        `${loser}، ئەگەر ئەمە پلانتە، پلانت وەک ئینتەرنێتی دوای بارانە. جیاوازی دژی تۆ ${difference} خاڵە.`,
+        `${loser}، خشتەکە خەریکە داوای گواستنەوە بکات لە شەرمدا. تۆ بە ${difference} خاڵ دواوەیت.`,
+        `${loser}، AI داوای وەستانی خەو دەکات؛ تۆ لە یارییەکەیت یان لە حەوتەم خەون؟ ${difference} خاڵ دواوەیت.`,
+        `${loser}، ئەمە وانەیەکی زیندوویە: "چۆن بە کەمترین خاڵ زۆرترین شەرم دروست بکەین". جیاوازی دژی تۆ ${difference} خاڵە.`,
+        `${loser}، کەمێک هێور بیت؟ نە، کەمێک خاڵ بهێنە باشترە. تۆ بە ${difference} خاڵ دواوەیت.`,
+        `${loser}، یارییەکە هەمووی ڕوونە، بەڵام تۆ هێشتا وێنەی پەڕەی یەکەم دەبینیت. ${difference} خاڵ دواوەیت.`,
+        `${loser}، ئەگەر بەم شێوەیە بەردەوام بیت، AI دەبێت پێت بڵێت "هەوڵت دا، بەس نەبوو". جیاوازی ${difference} خاڵە.`,
+        `${loser}، تۆ خەریکی دروستکردنی میمیت. جیاوازی دژی تۆ ${difference} خاڵە.`,
+        `${loser}، ئەمە کاتی قسە نییە، کاتی ڕزگارکردنی ناوبانگە. تۆ بە ${difference} خاڵ دواوەیت.`,
+        `${loser}، دۆخی تیمەکەت زۆر گەرمە، بەڵام وەک مۆبایلی هەڵسووتاو. جیاوازی دژی تۆ ${difference} خاڵە.`
     ];
 
     return getFreshMessage('roast', roasts);
@@ -189,19 +189,19 @@ function getGameEndedMessage(team1Name, team2Name, total1, total2) {
 
     if (total1 > total2) {
         return getFreshMessage('final', [
-            () => `یارییەکە لە تەرەقەی ٨ کۆتایی هات. ${team1Name} براوەی یارییەکەیە بە جیاوازی ${difference} خاڵ 🏆`,
-            () => `کۆتایی! ${team1Name} یارییەکەی بردەوە. جیاوازی کۆتایی ${difference} خاڵ بوو.`,
-            () => `AI بڕیاری دا: ${team1Name} شایستەی بردنەوە بوو. یاری لە تەرەقەی ٨ کۆتایی هات.`,
-            () => `${team1Name} تا دوا تەرەقە کۆنتڕۆڵی پاراست و بردیەوە. پیرۆزە 🏆`
+            () => `یارییەکە لە تەرەقەی ٨ کۆتایی هات. ${team2Name} بە ${difference} خاڵ دۆڕا؛ AI دەڵێت ئەم دۆڕانە پێویستی بە ڕاهێنانی جدی هەیە.`,
+            () => `کۆتایی! ${team2Name} بە ${difference} خاڵ دواوە مایەوە. ئەم جارە خشتەکە زۆر بەزەیی پێتدا هات.`,
+            () => `AI بڕیاری دا: ${team2Name} لەم یارییەدا زۆر کەم هێنایەوە. جیاوازی دژی تۆ ${difference} خاڵە.`,
+            () => `${team2Name} تا دوا تەرەقە هەوڵی دا، بەڵام جیاوازی ${difference} خاڵەکە زۆر قورس بوو.`
         ]);
     }
 
     if (total2 > total1) {
         return getFreshMessage('final', [
-            () => `یارییەکە لە تەرەقەی ٨ کۆتایی هات. ${team2Name} براوەی یارییەکەیە بە جیاوازی ${difference} خاڵ 🏆`,
-            () => `کۆتایی! ${team2Name} یارییەکەی بردەوە. جیاوازی کۆتایی ${difference} خاڵ بوو.`,
-            () => `AI بڕیاری دا: ${team2Name} شایستەی بردنەوە بوو. یاری لە تەرەقەی ٨ کۆتایی هات.`,
-            () => `${team2Name} تا دوا تەرەقە کۆنتڕۆڵی پاراست و بردیەوە. پیرۆزە 🏆`
+            () => `یارییەکە لە تەرەقەی ٨ کۆتایی هات. ${team1Name} بە ${difference} خاڵ دۆڕا؛ AI دەڵێت ئەم دۆڕانە پێویستی بە ڕاهێنانی جدی هەیە.`,
+            () => `کۆتایی! ${team1Name} بە ${difference} خاڵ دواوە مایەوە. ئەم جارە خشتەکە زۆر بەزەیی پێتدا هات.`,
+            () => `AI بڕیاری دا: ${team1Name} لەم یارییەدا زۆر کەم هێنایەوە. جیاوازی دژی تۆ ${difference} خاڵە.`,
+            () => `${team1Name} تا دوا تەرەقە هەوڵی دا، بەڵام جیاوازی ${difference} خاڵەکە زۆر قورس بوو.`
         ]);
     }
 
@@ -301,17 +301,16 @@ function calculateScores() {
     }
 
     if (aiOpinionElem) {
-        const roundMessage = latestRound > 0 ? getRoundAiMessage(latestRound, team1Name, team2Name, latestRoundScore1, latestRoundScore2) : '';
         if (total1 === 0 && total2 === 0) {
             aiOpinionElem.innerText = 'تێبینی زیرەک: خاڵەکان بنووسە بۆ ئەوەی AI بە توندی و گاڵتەی قورس لەگەڵ تیمی دۆڕاو قسە بکات.';
         } else if (latestRound >= 8) {
             aiOpinionElem.innerText = `بۆچوونی AI: ${getGameEndedMessage(team1Name, team2Name, total1, total2)}`;
         } else if (total1 < total2) {
-            aiOpinionElem.innerText = `بۆچوونی AI: ${getStrongAiRoast(team2Name, team1Name, difference)} ${roundMessage}`;
+            aiOpinionElem.innerText = `بۆچوونی AI: ${getStrongAiRoast(team2Name, team1Name, difference)}`;
         } else if (total2 < total1) {
-            aiOpinionElem.innerText = `بۆچوونی AI: ${getStrongAiRoast(team1Name, team2Name, difference)} ${roundMessage}`;
+            aiOpinionElem.innerText = `بۆچوونی AI: ${getStrongAiRoast(team1Name, team2Name, difference)}`;
         } else {
-            aiOpinionElem.innerText = `بۆچوونی AI: ${roundMessage} بە گشتی هەردوو تیمەکە یەکسانن، بۆیە AI ئێستا ناتوانێت هیچ تیمێک بکاتە قوربانی گاڵتە.`;
+            aiOpinionElem.innerText = 'بۆچوونی AI: هەردوو تیمەکە یەکسانن، بۆیە هیچ تیمێکی دۆڕاو نییە بۆ تێبینی.';
         }
 
         aiOpinionElem.style.animation = 'none';
@@ -335,8 +334,10 @@ function calculateScores() {
 
 function markOtherTeamWrong(input) {
     const row = input.closest('tr');
+    input.classList.toggle('score-filled', input.value.trim() !== '');
     if (!row || input.value.trim() === '') {
         input.classList.remove('wrong-score');
+        input.classList.remove('score-filled');
         input.readOnly = false;
         return;
     }
@@ -347,6 +348,7 @@ function markOtherTeamWrong(input) {
     if (otherInput && otherInput.value.trim() === '') {
         otherInput.value = '0';
         otherInput.classList.add('wrong-score');
+        otherInput.classList.remove('score-filled');
         otherInput.readOnly = true;
     }
 }
