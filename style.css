@@ -979,6 +979,252 @@ footer p {
     font-size: 0.9rem;
 }
 
+
+/* Modern Calculator Redesign */
+.match-score-calculator {
+    position: relative;
+    background:
+        radial-gradient(circle at top right, rgba(196, 167, 125, 0.35), transparent 34rem),
+        radial-gradient(circle at bottom left, rgba(111, 78, 55, 0.3), transparent 30rem),
+        linear-gradient(135deg, #2C1810 0%, #6F4E37 48%, #E8D5B7 100%);
+    overflow: hidden;
+}
+
+.match-score-calculator::before {
+    content: '';
+    position: absolute;
+    inset: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 36px;
+    pointer-events: none;
+}
+
+.match-score-calculator .match-score-container {
+    position: relative;
+    max-width: 1180px;
+    padding: clamp(1.2rem, 3vw, 2rem);
+    border: 1px solid rgba(255,255,255,0.24);
+    border-radius: 32px;
+    background: rgba(253, 248, 243, 0.92);
+    box-shadow: 0 30px 90px rgba(0,0,0,0.32);
+    backdrop-filter: blur(18px);
+}
+
+.calculator-header {
+    max-width: 720px;
+    margin: 0 auto 2rem;
+    text-align: center;
+}
+
+.calculator-badge {
+    display: inline-flex;
+    margin-bottom: 0.9rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    background: rgba(111, 78, 55, 0.12);
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.match-score-calculator h2 {
+    margin-bottom: 0.6rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.15;
+}
+
+.calculator-header p {
+    color: #6a5140;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    font-weight: 500;
+}
+
+.calculator-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.8fr);
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.calculator-main-card,
+.calculator-side-card {
+    border: 1px solid rgba(111, 78, 55, 0.12);
+    border-radius: 26px;
+    background: rgba(255,255,255,0.78);
+    box-shadow: 0 18px 50px rgba(44, 24, 16, 0.13);
+}
+
+.calculator-main-card {
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.calculator-side-card {
+    position: sticky;
+    top: 6rem;
+    padding: clamp(1rem, 2.5vw, 1.35rem);
+}
+
+.match-score-calculator .team-names {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.match-score-calculator .team-names label {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.match-score-calculator .team-names span {
+    color: #654b3a;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.match-score-calculator .team-names input {
+    width: 100%;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(111, 78, 55, 0.18);
+    border-radius: 16px;
+    background: #fffaf6;
+    font-weight: 700;
+}
+
+.match-score-calculator .team-names input:focus,
+.match-score-calculator input.score:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(111, 78, 55, 0.12);
+}
+
+.match-score-calculator table {
+    border-spacing: 0 0.65rem;
+    margin-bottom: 0;
+}
+
+.score-table-wrapper {
+    border-radius: 22px;
+}
+
+.match-score-calculator table th {
+    padding: 1.05rem 1rem;
+    background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+    font-size: 0.95rem;
+}
+
+.match-score-calculator table td {
+    padding: 0.95rem 1rem;
+    border-bottom: none;
+    background: #fffaf6;
+    color: #4d382b;
+    font-weight: 700;
+    box-shadow: 0 10px 28px rgba(44, 24, 16, 0.06);
+}
+
+.match-score-calculator table th:first-child,
+.match-score-calculator table td:first-child {
+    border-radius: 0 16px 16px 0;
+}
+
+.match-score-calculator table th:last-child,
+.match-score-calculator table td:last-child {
+    border-radius: 16px 0 0 16px;
+}
+
+.match-score-calculator input.score {
+    width: min(100%, 96px);
+    padding: 0.85rem 0.7rem;
+    border: 1px solid rgba(111, 78, 55, 0.18);
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.ai-section {
+    margin: 0;
+    border: 1px solid rgba(211, 104, 5, 0.24);
+    border-radius: 20px;
+    box-shadow: 0 12px 34px rgba(192, 94, 3, 0.14);
+}
+
+.ai-section h3 {
+    display: inline-flex;
+    margin-bottom: 0.8rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    color: white;
+    background: #cf6208;
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+#aiOpinion {
+    font-weight: 700;
+}
+
+.match-score-calculator .total-box {
+    margin-top: 1rem;
+    padding: 0;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    background: transparent;
+}
+
+.match-score-calculator .total-box div {
+    border: 1px solid rgba(111, 78, 55, 0.12);
+    border-radius: 18px;
+    background: #fffaf6;
+    box-shadow: 0 10px 28px rgba(44, 24, 16, 0.08);
+    font-weight: 800;
+}
+
+#difference {
+    grid-column: auto;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+    color: var(--light);
+    font-size: 1.08rem;
+    box-shadow: 0 14px 35px rgba(44, 24, 16, 0.24);
+}
+
+.match-score-calculator button {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #d66204 0%, #cf7704 45%, var(--primary) 100%);
+    font-weight: 800;
+    box-shadow: 0 14px 34px rgba(207, 98, 8, 0.28);
+}
+
+.match-score-calculator button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 44px rgba(207, 98, 8, 0.36);
+}
+
+@media (max-width: 900px) {
+    .calculator-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator-side-card {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .match-score-calculator::before {
+        inset: 0.75rem;
+        border-radius: 24px;
+    }
+
+    .match-score-calculator .team-names {
+        grid-template-columns: 1fr;
+    }
+}
 /* Mobile Menu */
 .menu-toggle {
     display: none;
@@ -1268,5 +1514,170 @@ footer p {
     .match-score-calculator input.score {
         max-width: 58px;
         padding: 0.5rem 0.2rem;
+    }
+}
+
+/* Mobile Calculator Polish */
+@media (max-width: 768px) {
+    .match-score-calculator {
+        padding: 2.5rem 0.75rem;
+        align-items: flex-start;
+    }
+
+    .match-score-calculator::before {
+        inset: 0.5rem;
+        border-radius: 22px;
+    }
+
+    .match-score-calculator .match-score-container {
+        padding: 0.85rem;
+        border-radius: 24px;
+        background: rgba(253, 248, 243, 0.96);
+        box-shadow: 0 18px 55px rgba(0,0,0,0.28);
+    }
+
+    .calculator-header {
+        margin-bottom: 1.2rem;
+        padding: 0.4rem 0.2rem 0;
+    }
+
+    .calculator-badge {
+        margin-bottom: 0.7rem;
+        padding: 0.35rem 0.8rem;
+        font-size: 0.68rem;
+    }
+
+    .match-score-calculator h2 {
+        margin-bottom: 0.5rem;
+        font-size: clamp(1.55rem, 8vw, 2.05rem);
+    }
+
+    .calculator-header p {
+        font-size: 0.9rem;
+        line-height: 1.8;
+    }
+
+    .calculator-layout {
+        gap: 0.9rem;
+    }
+
+    .calculator-main-card,
+    .calculator-side-card {
+        border-radius: 20px;
+        box-shadow: 0 12px 34px rgba(44, 24, 16, 0.12);
+    }
+
+    .calculator-main-card,
+    .calculator-side-card {
+        padding: 0.85rem;
+    }
+
+    .match-score-calculator .team-names {
+        gap: 0.7rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .match-score-calculator .team-names span {
+        font-size: 0.82rem;
+    }
+
+    .match-score-calculator .team-names input {
+        min-height: 46px;
+        padding: 0.75rem 0.9rem;
+        border-radius: 14px;
+        font-size: 0.95rem;
+    }
+
+    .score-table-wrapper {
+        overflow-x: visible;
+        border-radius: 16px;
+    }
+
+    .match-score-calculator table {
+        width: 100%;
+        min-width: 0;
+        table-layout: fixed;
+        border-spacing: 0 0.45rem;
+    }
+
+    .match-score-calculator table th,
+    .match-score-calculator table td {
+        padding: 0.55rem 0.25rem;
+        font-size: 0.78rem;
+    }
+
+    .match-score-calculator table th:first-child,
+    .match-score-calculator table td:first-child {
+        width: 24%;
+    }
+
+    .match-score-calculator input.score {
+        width: 100%;
+        max-width: 64px;
+        min-height: 42px;
+        padding: 0.55rem 0.25rem;
+        border-radius: 12px;
+        font-size: 0.95rem;
+    }
+
+    .ai-section {
+        padding: 1rem;
+        border-radius: 18px;
+    }
+
+    .ai-section h3 {
+        margin-bottom: 0.65rem;
+        font-size: 0.85rem;
+    }
+
+    #aiOpinion {
+        font-size: 0.9rem;
+        line-height: 1.85;
+    }
+
+    .match-score-calculator button {
+        min-height: 50px;
+        padding: 0.85rem 1rem;
+        border-radius: 16px;
+        font-size: 0.95rem;
+    }
+
+    .match-score-calculator .total-box {
+        gap: 0.65rem;
+    }
+
+    .match-score-calculator .total-box div,
+    #difference {
+        padding: 0.85rem 0.7rem;
+        border-radius: 16px;
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+}
+
+@media (max-width: 390px) {
+    .match-score-calculator {
+        padding-inline: 0.5rem;
+    }
+
+    .match-score-calculator .match-score-container {
+        padding: 0.65rem;
+    }
+
+    .calculator-main-card,
+    .calculator-side-card {
+        padding: 0.65rem;
+    }
+
+    .match-score-calculator table th,
+    .match-score-calculator table td {
+        padding: 0.48rem 0.18rem;
+        font-size: 0.72rem;
+    }
+
+    .match-score-calculator input.score {
+        max-width: 56px;
+        min-height: 38px;
+        font-size: 0.88rem;
     }
 }

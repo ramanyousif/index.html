@@ -278,73 +278,92 @@
     <!-- Match Points Calculator -->
     <section class="match-score-calculator" id="contact">
         <div class="match-score-container">
-            <h2>حاسیبەی خاڵی کۆنکان</h2>
-            <div class="team-names">
-                <input type="text" id="team1Name" value="تیمی یەکەم" data-default-name="تیمی یەکەم">
-                <input type="text" id="team2Name" value="تیمی دووەم" data-default-name="تیمی دووەم">
+            <div class="calculator-header">
+                <span class="calculator-badge">Mela Score Board</span>
+                <h2>حاسیبەی خاڵی کۆنکان</h2>
+                <p>ناوی تیمەکان بنووسە، خاڵەکان تۆمار بکە، پاشان AI دەڵێت کێ پێشەوەیە.</p>
             </div>
-            <div class="score-table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>تەرەقە</th>
-                            <th id="name1">تیمی یەکەم</th>
-                            <th id="name2">تیمی دووەم</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><input class="score t1" type="number"></td>
-                            <td><input class="score t2" type="number"></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><input class="score t1" type="number"></td>
-                            <td><input class="score t2" type="number"></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><input class="score t1" type="number"></td>
-                            <td><input class="score t2" type="number"></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td><input class="score t1" type="number"></td>
-                            <td><input class="score t2" type="number"></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td><input class="score t1" type="number"></td>
-                            <td><input class="score t2" type="number"></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td><input class="score t1" type="number"></td>
-                            <td><input class="score t2" type="number"></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td><input class="score t1" type="number"></td>
-                            <td><input class="score t2" type="number"></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td><input class="score t1" type="number"></td>
-                            <td><input class="score t2" type="number"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="ai-section">
-                <h3>AI</h3>
-                <p id="aiOpinion">تێبینی زیرەک: خاڵەکان بنووسە بۆ ئەوەی AI بۆچوونی خۆی لەسەر یارییەکە بدات.</p>
-            </div>
-            <button type="button" onclick="calculateScores()">کۆکردنەوەی خاڵەکان</button>
-            <div class="total-box">
-                <div id="total1">کۆی تیمی یەکەم: 0</div>
-                <div id="total2">کۆی تیمی دووەم: 0</div>
-                <div id="difference">جیاوازی: 0</div>
+
+            <div class="calculator-layout">
+                <div class="calculator-main-card">
+                    <div class="team-names">
+                        <label>
+                            <span>تیمی یەکەم</span>
+                            <input type="text" id="team1Name" value="تیمی یەکەم" data-default-name="تیمی یەکەم">
+                        </label>
+                        <label>
+                            <span>تیمی دووەم</span>
+                            <input type="text" id="team2Name" value="تیمی دووەم" data-default-name="تیمی دووەم">
+                        </label>
+                    </div>
+
+                    <div class="score-table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>تەرەقە</th>
+                                    <th id="name1">تیمی یەکەم</th>
+                                    <th id="name2">تیمی دووەم</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><input class="score t1" type="number"></td>
+                                    <td><input class="score t2" type="number"></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><input class="score t1" type="number"></td>
+                                    <td><input class="score t2" type="number"></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><input class="score t1" type="number"></td>
+                                    <td><input class="score t2" type="number"></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><input class="score t1" type="number"></td>
+                                    <td><input class="score t2" type="number"></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><input class="score t1" type="number"></td>
+                                    <td><input class="score t2" type="number"></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td><input class="score t1" type="number"></td>
+                                    <td><input class="score t2" type="number"></td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td><input class="score t1" type="number"></td>
+                                    <td><input class="score t2" type="number"></td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td><input class="score t1" type="number"></td>
+                                    <td><input class="score t2" type="number"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <aside class="calculator-side-card">
+                    <div class="ai-section">
+                        <h3>AI</h3>
+                        <p id="aiOpinion">تێبینی زیرەک: خاڵەکان بنووسە بۆ ئەوەی AI بۆچوونی خۆی لەسەر یارییەکە بدات.</p>
+                    </div>
+                    <button type="button" onclick="calculateScores()">کۆکردنەوەی خاڵەکان</button>
+                    <div class="total-box">
+                        <div id="total1">کۆی تیمی یەکەم: 0</div>
+                        <div id="total2">کۆی تیمی دووەم: 0</div>
+                        <div id="difference">جیاوازی: 0</div>
+                    </div>
+                </aside>
             </div>
         </div>
     </section>
